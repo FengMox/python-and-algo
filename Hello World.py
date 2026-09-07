@@ -401,9 +401,14 @@ languages.append(temp)
 print(languages)  # ['Python', C++', 'SQL']
   #使用clear方法，可以清空列表中的元素
 languages.clear()
-print(languages)  # []🐔"""
+print(languages)  # []
+  #使用 Python 中的del关键字后面跟要删除的元素
+items = ['Python', 'Java', 'C++']
+del items[1]
+print(items)  # ['Python', 'C++']
+🐔"""
 
- #practice
+"""🐔 #practice
 items= ['th', 'Romin','yq','hxb','zyc','dxh']
 print(items)
 items.append('lx')
@@ -414,10 +419,57 @@ items.remove('dxh')
 print(items)
 items.pop(3)
 print(items)
-items.clear()
+del items[2]
 print(items)
+items.clear()
+print(items)🐔"""
 
-items = ['Python', 'Java', 'C++']
-del items[1]
-print(items)  # ['Python', 'C++']
+"""🐔#元素位置和频次
+items = ['Python', 'Java', 'Java', 'C++', 'Kotlin', 'Python']
+  #列表的index方法可以查找某个元素在列表中的索引位置,从左至右直到结束，不会掉头或是读取完一遍后又从第一个元素开始重新读直到找到该元素
+print(items.index('Python'))     # 0
+# 从索引位置1开始查找'Python'
+print(items.index('Python', 1))  # 5
+  #列表的count方法可以统计一个元素在列表中出现的次数
+print(items.count('Python'))     # 2
+print(items.count('Kotlin'))     # 1
+print(items.count('Swift'))      # 0
+# 从索引位置3开始查找'Java'
+#print(items.index('Java', 3))    # ValueError: 'Java' is not in list🐔"""
 
+"""🐔#元素排序与反转
+items = ['Python', 'Java', 'C++', 'Kotlin', 'Swift']
+items.sort() #列表的sort操作可以实现列表元素的排序 对于基础排序：数字按大小排，字符串按Unicode码表排，两者混合则无法排序
+print(items)  # ['C++', 'Java', 'Kotlin', 'Python', 'Swift']
+items.reverse() #reverse操作可以实现元素的反转
+print(items)  # ['Swift', 'Python', 'Kotlin', 'Java', 'C++']🐔"""
+
+#列表生成式  在 Python 中，列表还可以通过一种特殊的字面量语法来创建，这种语法叫做生成式
+'''
+列表生成式的基本结构为 [表达式 for 变量 in 可迭代对象 if 条件]
+它等价于：
+新列表 = []
+for 变量 in 可迭代对象:
+    if 条件:
+        新列表.append(表达式)
+'''
+"""🐔 #场景一：创建一个取值范围在1到99且能被3或者5整除的数字构成的列表。
+items = [i for i in range(1, 100) if i % 3 == 0 or i % 5 == 0]
+print(items)
+#场景二：有一个整数列表nums1，创建一个新的列表nums2，nums2中的元素是nums1中对应元素的平方。
+nums1 = [35, 12, 97, 64, 55]
+nums2 = [num ** 2 for num in nums1]
+print(nums2)
+#场景三： 有一个整数列表nums1，创建一个新的列表nums2，将nums1中大于50的元素放到nums2中。
+nums1 = [35, 12, 97, 64, 55]
+nums2 = [num for num in nums1 if num > 50]
+print(nums2)
+  #例如场景三 列表生成式是对如下较麻烦且吃算力的代码的简化
+nums1 = [35, 12, 97, 64, 55]
+nums2 = []
+for num in nums1:
+   if num > 50:
+       nums2.append(num)
+print(nums2)🐔"""
+
+#嵌套列表
