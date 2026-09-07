@@ -89,7 +89,7 @@ print(f'状态码描述：{description:.3s}')🐔"""
 带有_的case语句在代码中起到通配符的作用，如果前面的分支都没有匹配上，代码就会来到case _
 case _的是可选的，并非每种分支结构都要给出通配符选项。
 如果分支中出现了case _，它只能放在分支结构的最后面，如果它的后面还有其他的分支，那么这些分支将是不可达的。
-这相当于C++中的break语句 
+这相当于C++中的default语句 
 """
 """🐔status_code = int(input('响应状态码: '))#另外，match-case语句还有如下一种合并模式的表达形式
 match status_code:
@@ -157,7 +157,7 @@ is_prime=True
 for i in range(2,int(n**0.5)+1):#range中的参数必须是整型，必要时可做强制类型转换
     if n % i == 0:#如果2到根号n中存在n的因数，则n不是素数，这是判断的基本原理
         is_prime=False
-    break#加快程序响应速度
+        break#加快程序响应速度
 if is_prime:
     print(f'{n}是素数')
 else:
@@ -472,4 +472,44 @@ for num in nums1:
        nums2.append(num)
 print(nums2)🐔"""
 
-#嵌套列表
+"""🐔#嵌套列表 即列表中的元素也为列表
+ #使用嵌套列表存储与读取五名学生的三科成绩
+scores = [[95, 83, 92], [80, 75, 82], [92, 97, 90], [80, 78, 69], [65, 66, 89]]
+print(scores[0]) #使用一次索引运算 输出索引为0的元素，即列表 [95, 83, 92]
+print(scores[0][1]) #使用两次索引运算 输出索引为0的列表里索引为1的元素 83
+ #通过键盘输入来添加与存储上述成绩
+scores = []
+for _ in range(5):
+   temp = []
+   for _ in range(3):
+       score = int(input('请输入: '))
+       temp.append(score)
+   scores.append(temp)
+print(scores)
+#通过列表生成式来产生嵌套列表（数据随机）
+import random
+scores = [[random.randrange(60, 101) for _ in range(3)] for _ in range(5)]
+  #range(3)相当于在for循环中依次取0,1,2，循环执行3次。这在之前也有过解释
+print(scores)🐔"""
+
+"""🐔#双色球随机选号程序  国内各种形式的彩票的本质：虚构一个不劳而获的人，去忽悠一群想不劳而获的人，最终养活一批真正不劳而获的人
+import random
+
+n = int(input('生成几注号码: '))
+red_balls = [i for i in range(1, 34)]
+blue_balls = [i for i in range(1, 17)]
+for _ in range(n):
+    # 从红色球列表中随机抽出6个红色球（无放回抽样）
+    selected_balls = random.sample(red_balls, 6) #利用random模块提供的sample函数来实现无放回随机抽样
+    # 对选中的红色球排序
+    selected_balls.sort()
+    # 输出选中的红色球
+    for ball in selected_balls:
+        print(f'\033[031m{ball:0>2d}\033[0m', end=' ')
+    # 从蓝色球列表中随机抽出1个蓝色球
+    blue_ball = random.choice(blue_balls) #利用random模块提供的choice函数来实现随机抽取一个元素
+    # 输出选中的蓝色球
+    print(f'\033[034m{blue_ball:0>2d}\033[0m')
+    #上面代码中print(f'\033[0m...\033[0m')是为了控制输出内容的颜色🐔"""
+#Python 中的列表底层是一个可以动态扩容的数组，列表元素在计算机内存中是连续存储的，所以可以实现随机访问（通过一个有效的索引获取对应的元素且操作时间与列表元素个数无关）。
+
