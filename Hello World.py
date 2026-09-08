@@ -2,6 +2,10 @@
 这是我系统性学习Python的The First Day
 希望疑虑的阴云能随着学习的深入而逐渐消散，冥茫也能荡然无存
 """
+from math import sqrt
+
+from Crypto.Random import random
+
 #昔涟.是桃子。是爱。
 #昔涟。不喜欢眼泪。嘻嘻哈哈。
 #昔涟是。温柔。爱美。会写诗。
@@ -40,7 +44,7 @@ print(f'{f:.2f}华氏度={c:.2f}摄氏度')🐔"""
 这时占位符为%.1f，这两个占位符会被%之后的(f, c)中的两个float类型的变量值给替换掉
 """
 """🐔#输入半径计算圆的周长和面积
-import math #导入math模块以使用其中的pi常量。相当于C++中的#include<cmath>
+import math #导入math模块以使用其中的pi常量。
 radius = float(input('请输入圆的半径: '))
 perimeter = 2 * math.pi * radius#可以理解为C++中与类同名的类类型变量math去访问math类中的公有成员pi
 area = math.pi * radius ** 2
@@ -317,7 +321,7 @@ print('C++' not in items7)     # True
 print('Python' not in items7)  # False🐔"""
 
 """
-当我们想操作列表中的某个元素时，可以使用[]运算符，通过在[]中指定元素的位置来访问该元素，这种运算称为索引运算。
+当我们想操作列表中的某个元素时，可以使用[]字面量运算符，通过在[]中指定元素的位置来访问该元素，这种运算称为索引运算。
 需要说明的是，[]的元素位置可以是0到N-1的整数，也可以是-1到-N的整数，分别称为正向索引和反向索引，其中N代表列表元素的个数。
 对于正向索引，[0]可以访问列表中的第一个元素，[N-1]可以访问最后一个元素；
 对于反向索引，[-1]可以访问列表中的最后一个元素，[-N]可以访问第一个元素
@@ -327,7 +331,7 @@ items8 = ['apple', 'waxberry', 'pitaya', 'peach', 'watermelon']
 print(items8[0])   # apple
 print(items8[2])   # pitaya
 print(items8[4])   # watermelon
-items8[2] = 'durian'
+items8[2] = 'durian' #将索引值为2的元素替换成’durian‘
 print(items8)      # ['apple', 'waxberry', 'durian', 'peach', 'watermelon']
 print(items8[-5])  # 'apple'
 print(items8[-4])  # 'waxberry'
@@ -363,6 +367,15 @@ for index in range(len(languages)):
 languages = ['Python', 'Java', 'C++', 'Go']
 for language in languages:
     print(language)🐔"""
+
+"""🐔  #Practice 当列表中元素个数不确定（即len(items)不确定）时
+import random
+length=random.randint(1,10)  #调用模块random中的函数randint可以生成一个给定闭区间的任意数值
+items=list(random.randrange(1,100) for i in range(length))
+for index in range(len(items)):
+  print(items[index])
+for item in items:
+  print(item)🐔"""
 
 """🐔#列表的应用  掷色子统计每种点数出现次数
 import random
@@ -402,11 +415,10 @@ print(languages)  # ['Python', C++', 'SQL']
   #使用clear方法，可以清空列表中的元素
 languages.clear()
 print(languages)  # []
-  #使用 Python 中的del关键字后面跟要删除的元素
+  #使用Python中的del关键字后面跟要删除的元素,实现的效果和pop一样但性能更优
 items = ['Python', 'Java', 'C++']
 del items[1]
-print(items)  # ['Python', 'C++']
-🐔"""
+print(items)  # ['Python', 'C++']🐔"""
 
 """🐔 #practice
 items= ['th', 'Romin','yq','hxb','zyc','dxh']
@@ -470,7 +482,10 @@ nums2 = []
 for num in nums1:
    if num > 50:
        nums2.append(num)
-print(nums2)🐔"""
+print(nums2)
+items1=[random.randrange(1, 10) for i in range(1, 10)] #生成9个取值范围为1——10左开右闭区间的数
+print(items1)
+ #注：items=[任意有定义的元素]与items=list(与前者完全相同的元素)等价🐔"""
 
 """🐔#嵌套列表 即列表中的元素也为列表
  #使用嵌套列表存储与读取五名学生的三科成绩
@@ -513,3 +528,107 @@ for _ in range(n):
     #上面代码中print(f'\033[0m...\033[0m')是为了控制输出内容的颜色🐔"""
 #Python 中的列表底层是一个可以动态扩容的数组，列表元素在计算机内存中是连续存储的，所以可以实现随机访问（通过一个有效的索引获取对应的元素且操作时间与列表元素个数无关）。
 
+#元组的定义与运算
+"""
+元组也是多个元素按照一定顺序构成的序列,但元组是不可变类型，
+这就意味着元组类型的变量一旦定义，其中的元素不能再添加或删除，而且元素的值也不能修改
+就像列表可以用字面量[]来定义一般，定义元组通常使用形如(x, y, z)的字面量语法
+也如同列表可以用list这个内置类型（类构造器）来创建一般，元组也可用tuple这个内置类型来创建
+"""
+"""🐔#下面是元组运算的一些实例，与列表的运算有很大的相似性
+  #定义一个三元组
+t1 = (35, 12, 98)
+  #定义一个四元组
+t2 = ('刘ly', 19, True, '四川自贡')
+  #查看变量的类型
+print(type(t1))  # <class 'tuple'>
+print(type(t2))  # <class 'tuple'>
+  #查看元组中元素的数量
+print(len(t1))  # 3
+print(len(t2))  # 4
+  #索引运算
+print(t1[0])    # 35
+print(t1[2])    # 98
+print(t2[-1])   # 四川自贡
+  #切片运算
+print(t2[:2])   # ('刘ly', 19)
+print(t2[::3])  # ('刘ly', '四川自贡')
+  #循环遍历元组中的元素
+for elem in t1:
+    print(elem)
+  #成员运算
+print(12 in t1)         # True
+print(99 in t1)         # False
+if 'Felix Morrow' not in t2:
+    print('True')# True
+  #拼接运算
+t3 = t1 + t2
+print(t3)  # (35, 12, 98, '刘ly', 19, True, '四川自贡')
+  #比较运算
+print(t1 == t3)            # False
+print(t1 >= t3)            # False
+print(t1 <= (35, 11, 99))  # False🐔"""
+'''
+如果元组中只有一个元素，需要加上一个逗号，否则()就不是代表元组的字面量语法，而是改变运算优先级的圆括号，
+所以('hello', )和(100, )才是一元组，而('hello')和(100)只是字符串和整数
+即便用item=tuple([random.randint(1, 10) for i in range(1, 2)])来产生一元组，
+print(item)时输出结果也会自带逗号
+'''
+
+"""🐔#打包和解包操作
+#当我们把多个用逗号分隔的值赋给一个变量时，多个值会打包成一个元组类型；当我们把一个元组赋值给多个变量时，元组会解包成多个值然后分别赋给对应的变量
+  #打包操作
+a = 1, 10, 100
+print(type(a))  # <class 'tuple'>
+print(a)        # (1, 10, 100)
+  #解包操作 解包时，如果解包出来的元素个数和变量个数不对应，会引发ValueError异常
+i, j, k = a
+print(i, j, k)  # 1 10 100
+#通过星号表达式，我们可以让一个变量接收多个值，以解决变量个数少于元素的个数的情况，避免程序运行异常
+#用星号表达式修饰的变量会变成一个列表，列表中有0个或多个元素。并且，在解包语法中，星号表达式只能出现一次
+a = 1, 10, 100, 1000
+i, j, *k = a
+print(i, j, k)        # 1 10 [100, 1000]
+i, *j, k = a
+print(i, j, k)        # 1 [10, 100] 1000
+*i, j, k = a
+print(i, j, k)        # [1, 10] 100 1000
+*i, j = a
+print(i, j)           # [1, 10, 100] 1000
+i, *j = a
+print(i, j)           # 1 [10, 100, 1000]
+i, j, k, *l = a
+print(i, j, k, l)     # 1 10 100 [1000]
+i, j, k, l,*m = a
+print(i, j, k, l, m)  # 1 10 100 1000 []
+#解包语法对所有的序列都成立，这就意味着列表、range函数构造的范围序列甚至字符串都可以使用解包语法
+a, b, *c = range(1, 10)
+print(a, b, c) #1 2 [3, 4, 5, 6, 7, 8, 9]
+a, b, c = [1, 10, 100]
+print(a, b, c) #1 10 100
+a, *b, c = 'hello'
+print(a, b, c) #h ['e', 'l', 'l'] o🐔"""
+
+"""🐔#Python中的元组和列表类型是可以通过使用对应的类构造器相互转换的
+items1 = ('刘ly', 19, True, '四川自贡')
+print(list(items1))  # ['刘ly', 19, True, '四川自贡'] #将元组转换成列表
+items2 = ['apple', 'banana', 'orange']
+print(tuple(items2))  # ('apple', 'banana', 'orange') #将列表转换成元组🐔"""
+'''
+列表和元组都是容器型的数据类型，即一个变量可以保存多个数据，而且它们都是按一定顺序组织元素的有序容器。
+列表是可变数据类型，元组是不可变数据类型，所以列表可以添加元素、删除元素、清空元素、排序反转，但这些操作对元组来说是不成立的。
+列表和元组都可以支持拼接运算、成员运算、索引运算、切片运算等操作，
+字符串类型也支持这些运算，因为字符串就是字符按一定顺序构成的序列
+'''
+
+#在 Python 程序中，我们把单个或多个字符用单引号或者双引号包围起来，就可以表示一个字符串
+'''
+在字符串中使用\（反斜杠）来表示转义，也就是说\后面的字符不再是它原来的意义，
+例如：\n不是代表字符\和字符n，而是表示换行；\t也不是代表字符\和字符t，而是表示制表符。
+所以如果字符串本身又包含了'、"、\这些特殊的字符，必须要通过\进行转义处理
+'''
+#输出一个带单引号或反斜杠的字符串
+s1 = '\'hello, world!\''
+s2 = '\\hello, world!\\'
+print(s1)
+print(s2)
