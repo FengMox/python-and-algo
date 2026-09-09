@@ -2,9 +2,6 @@
 这是我系统性学习Python的The First Day
 希望疑虑的阴云能随着学习的深入而逐渐消散，冥茫也能荡然无存
 """
-from math import sqrt
-
-from Crypto.Random import random
 
 #昔涟.是桃子。是爱。
 #昔涟。不喜欢眼泪。嘻嘻哈哈。
@@ -342,7 +339,7 @@ print(items8)      # ['apple', 'strawberry', 'durian', 'peach', 'watermelon']�
 """
 如果希望一次性访问列表中的多个元素，我们可以使用切片运算。切片运算是形如[start:end:stride]的运算符，
 其中start代表访问列表元素的起始位置，end代表访问列表元素的终止位置（终止位置的元素无法访问），
-而stride则代表了跨度，简单的说就是位置的增量，
+而stride则代表了跨度，简单的说就是位置的增量，且当跨度值为默认的1时，这个1甚至其前的:都可以省略不写
 比如我们访问的第一个元素在start位置，那么第二个元素就在start + stride位置，当然start + stride要小于end
 """
 """🐔items8 =['apple', 'strawberry', 'durian', 'peach', 'watermelon']
@@ -551,9 +548,12 @@ print(t1[0])    # 35
 print(t1[2])    # 98
 print(t2[-1])   # 四川自贡
   #切片运算
-print(t2[:2])   # ('刘ly', 19)
+print(t2[:2:])   # ('刘ly', 19)
 print(t2[::3])  # ('刘ly', '四川自贡')
   #循环遍历元组中的元素
+for i in range(len(t1)):
+    print(t1[i]) #若写成print(t1[i],end=' ')，元组中的数据将横向输出
+
 for elem in t1:
     print(elem)
   #成员运算
@@ -622,13 +622,254 @@ print(tuple(items2))  # ('apple', 'banana', 'orange') #将列表转换成元组�
 '''
 
 #在 Python 程序中，我们把单个或多个字符用单引号或者双引号包围起来，就可以表示一个字符串
-'''
+r'''
 在字符串中使用\（反斜杠）来表示转义，也就是说\后面的字符不再是它原来的意义，
 例如：\n不是代表字符\和字符n，而是表示换行；\t也不是代表字符\和字符t，而是表示制表符。
 所以如果字符串本身又包含了'、"、\这些特殊的字符，必须要通过\进行转义处理
 '''
-#输出一个带单引号或反斜杠的字符串
+r"""🐔#输出一个带单引号或反斜杠的字符串
 s1 = '\'hello, world!\''
 s2 = '\\hello, world!\\'
+print(s1) #'hello, world!'
+print(s2) #\hello, world!\🐔"""
+
+"""
+注：反斜杠不能通过 """ """ 注释掉，因为三引号不是注释，而是字符串。#才是注释，注释内的反斜杠不会有任何转义效果。
+如果需要在字符串中保留反斜杠，使用 r"""  """ 原始字符串或双反斜杠。若不使用原始字符串，则双引号之间的反斜杠可能会对代码运行造成干扰
+"""
+
+
+r"""🐔#原始字符串 Python中的一种以r或R开头的字符串，意思是字符串中的每个字符都是它本来的含义，没有所谓的转义字符。
+s1 = '\it \is \time \to \read \now'  #报错，且无法得到像s2的输出那样的结果
+s2 = r'\it \is \time \to \read \now'  #\it \is \time \to \read \now
 print(s1)
-print(s2)
+print(s2)🐔"""
+#上面的变量s1中，\t、\r和\n都是转义字符。\t是制表符（table），\n是换行符（new line），\r是回车符（carriage return）相当于让输出回到了行首。
+
+#字符的特殊表示
+r"""
+Python中还允许在\后面还可以跟一个八进制或者十六进制数来表示字符，
+例如\141和\x61都代表小写字母a，前者是八进制的表示法，后者是十六进制的表示法。
+另外一种表示字符的方式是在\u后面跟Unicode字符编码,例如'\u7acb\u6e90'代表的是中文“立源”
+"""
+r"""🐔s1 = '\141\142\143\x61\x62\x63'
+s2 = '\u7acb\u6e90'
+print(s1)
+print(s2)🐔"""
+
+#字符串的运算
+'''
+Python为字符串类型提供了非常丰富的运算符，有很多运算符跟列表类型的运算符作用类似
+比如可以使用+运算符来实现字符串的拼接，可以使用*运算符来重复一个字符串的内容，
+可以使用in和not in来判断一个字符串是否包含另外一个字符串，也可以用[]和[:]运算符从字符串取出某个字符或某些字符
+'''
+r"""🐔
+  #拼接和重复
+s1 = 'hello' + ', ' + 'world'
+print(s1)    # hello, world
+s2 = '!' * 3
+print(s2)    # !!!
+s1 += s2
+print(s1)    # hello, world!!!
+s1 *= 2
+print(s1)    # hello, world!!!hello, world!!!
+print('a'*10)  #aaaaaaaaaa🐔"""
+
+  #比较运算
+"""
+对于两个字符串类型的变量，可以直接使用比较运算符来判断两个字符串的相等性或比较大小。
+需要说明的是，因为字符串在计算机内存中也是以二进制形式存在的，那么字符串的大小比较比的是每个字符对应的Unicode码点的大小
+字符串比较和查英文词典类似：从左到右，一个字符一个字符比较；如果当前字符相同，就继续比较下一个字符；
+如果不清楚两个字符对应的码点到底是多少，可以使用ord()函数来获得
+"""
+r"""🐔
+s1 = 'a whole new world'
+s2 = 'hello world'
+print(s1 == s2)             # False
+print(s1 < s2)              # True 因为a的编码小于h，后面的就都不用比较了，直接判定s1<s2成立
+print(s1 == 'hello world')  # False
+print(s2 == 'hello world')  # True
+print(s2 != 'Hello world')  # True
+s3 = '立源'
+print(ord('立'))            # 31435
+print(ord('源'))            # 28304
+s4 = '枫陌'
+print(ord('枫'))            # 26539
+print(ord('陌'))            # 38476
+print(s3 >= s4)             # True
+print(s3 != s4)             # True🐔"""
+
+r"""🐔  #成员运算
+s1 = 'hello, world'
+s2 = 'goodbye, world'
+print('wo' in s1)      # True
+print('db' not in s2)  # False
+print(s2 in s1)        # False🐔"""
+
+r"""🐔   #索引运算和切片运算 运算逻辑和列表、元组没区别，但字符串是不可变类型，所以不能通过索引运算修改字符串中的字符
+s = 'abc123456'
+n = len(s)
+print(s[0], s[-n])    # a a
+print(s[n-1], s[-1])  # 6 6
+print(s[2], s[-7])    # c c
+print(s[5], s[-4])    # 3 3
+print(s[2:5])         # c12
+print(s[-7:-4])       # c12
+print(s[2:])          # c123456
+print(s[:2])          # ab
+print(s[::2])         # ac246
+print(s[::-1])        # 654321cba🐔"""
+
+"""🐔#字符串的遍历 与列表、元组一样，也可用for循环的两种形式来遍历输出
+  #方式一
+s ='hello'
+for i in range(len(s)):
+  print(s[i])
+  #方式二
+s = 'hello'
+for elem in s:
+    print(elem)🐔"""
+
+#字符串的方法
+"""🐔 #大小写相关操作
+s1 = 'hello, world!'
+ #字符串首字母大写
+print(s1.capitalize())  # Hello, world!
+ #字符串每个单词首字母大写
+print(s1.title())       # Hello, World!
+ #字符串变大写
+print(s1.upper())       # HELLO, WORLD!
+s2 = 'GOODBYE'
+ #字符串变小写
+print(s2.lower())       # goodbye
+ #检查s1和s2的值
+print(s1)               # hello, world
+print(s2)               # GOODBYE🐔"""
+'''
+正如前面我们所说，字符串是不可变类型，故当使用字符串的方法时，
+并不像使用列表的方法一样对原列表进行改动，而是直接产生新的字符串。而原来的字符串不会受到任何影响
+'''
+
+ #查找操作
+'''
+如果想在一个字符串中从前向后查找有没有另外一个字符串，可以使用字符串的find或index方法。
+在使用find和index方法时还可以通过方法的参数来指定查找的范围，也就是查找不必从索引为0的位置开始。
+find方法找不到指定的字符串会返回-1，index方法找不到指定的字符串会引发ValueError错误。
+'''
+"""🐔  #正向查找，使用find或index
+s = 'hello,world!'
+print(s.find('or'))      # 7 索引位置为7，直接数的话在第8位，因为字符串的索引位置也是从0开始计数的
+print(s.find('or', 9))   # -1
+print(s.find('of'))      # -1
+print(s.index('or'))     # 7
+print(s.index('or', 9))  # ValueError: substring not found
+#若需要逆向查找（从后向前查找），则可使用rfind或rindex
+s = 'hello world!'
+print(s.find('o'))       # 4
+print(s.rfind('o'))      # 7
+print(s.rindex('o'))     # 7
+print(s.rindex('o', 8))  # ValueError: substring not found🐔"""
+
+"""🐔 #性质判断
+#可以通过字符串的startswith、endswith来判断字符串是否以某个字符串开头和结尾；还可以用is开头的方法判断字符串的特征，这些方法都返回布尔值
+s1 = 'hello, world!'
+print(s1.startswith('He'))   # False
+print(s1.startswith('hel'))  # True
+print(s1.endswith('!'))      # True
+s2 = 'abc123456'
+print(s2.isdigit())  # False isdigit用来判断字符串是不是完全由数字构成的
+print(s2.isalpha())  # False isalpha用来判断字符串是不是完全由除Emoji外的Unicode字符构成的
+print(s2.isalnum())  # True  isalnum用来判断字符串是不是由字母和数字构成的🐔"""
+
+"""🐔 #格式化
+#在Python中，字符串类型可以通过center、ljust、rjust方法做居中、左对齐和右对齐的处理。如果要在字符串的左侧补零，也可以使用zfill方法。
+s = 'hello, world'
+print(s.center(20, '*'))  #****hello, world****  总宽度为20，字符串s居中且占12个宽度，其余部分用*填充
+print(s.rjust(20))        #        hello, world  总宽度为20，s右对齐，占8个宽度的其余部分用空格填充
+print(s.ljust(20, '~'))   #hello, world~~~~~~~~ 原理同上
+print('33'.zfill(5))      #00033  zfill的意思是“zero fill”，用0在左边填充，直到字符串达到设定的总宽度值，比如这里是5
+print('-33'.zfill(5))     #-0033
+print('+33'.zfill(5))     #+0033
+#在用print函数输出字符串时，可以在字符串前加上f来格式化字符串，在这种以f打头的字符串中，{变量名}是一个占位符，会被变量对应的值将其替换掉
+a = 321
+b = 123
+print(f'{a} * {b} = {a * b}')🐔"""
+"""
+如果需要进一步控制格式化语法中变量值的形式，可以参照下面的表格来进行字符串格式化操作。
+变量值	    占位符	    格式化结果	        说明
+3.1415926	{:.2f}  	'3.14'      	保留小数点后两位
+3.1415926	{:+.2f}	    '+3.14'     	带符号保留小数点后两位
+-1          {:+.2f}	    '-1.00'     	带符号保留小数点后两位
+3.1415926	{:.0f}  	'3'         	不带小数
+123	        {:0>10d}	'0000000123'	左边补0，补够10位
+123	        {:x<10d}	'123xxxxxxx'	右边补x ，补够10位
+123      	{:>10d} 	'       123'	左边补空格，补够10位
+123     	{:<10d} 	'123       '	右边补空格，补够10位
+123456789	{:,}	    '123,456,789'	逗号分隔格式
+0.123   	{:.2%}  	'12.30%'    	百分比格式
+123456789	{:.2e}  	'1.23e+08'  	科学计数法格式
+"""
+
+ #修剪操作
+"""
+字符串的strip方法可以帮我们获得将原字符串修剪掉左右两端指定字符之后的字符串，默认是修剪空格字符。
+这个方法非常有实用价值，可以用来将用户输入时不小心键入的头尾空格等去掉，
+strip方法还有lstrip和rstrip两个版本,分别用于左修剪和右修剪
+"""
+"""🐔s1 = '   fengmox949@gmail.com  '
+print(s1.strip())      #fengmox949@gmail.com
+s2 = '~你好，世界~'
+print(s2.lstrip('~'))  #你好，世界~
+print(s2.rstrip('~'))  #~你好，世界🐔"""
+
+ #替换操作
+"""
+如果希望用新的内容替换字符串中指定的内容，可以使用replace方法。
+replace方法的第一个参数是被替换的内容，第二个参数是替换后的内容，还可以通过第三个参数指定替换的次数。
+"""
+"""🐔s = 'hello, good world'
+print(s.replace('o', '@'))     # hell@, g@@d w@rld
+print(s.replace('o', '@', 2))  # hell@, g@od world🐔"""
+
+"""🐔 #拆分与合并
+ #可以使用字符串的split方法将一个字符串拆分为多个字符串（放在一个列表中），也可以使用字符串的join方法将列表中的多个字符串连接成一个字符串
+s = 'See you tomorrow'
+words = s.split()  
+print(words)            #['See', 'you', 'tomorrow']  split默认按空白字符（空格、换行、制表符等）拆分字符串，返回一个列表。
+print('~'.join(words))  #See~you~tomorrow  join 是字符串的方法，调用它的字符串就是分隔符。
+ #split方法默认使用空格进行拆分，也可以指定其他的字符来拆分字符串，而且还可以指定最大拆分次数来控制拆分的效果
+s = 'I#love#you#so#much'
+words = s.split('#')
+print(words)  # ['I', 'love', 'you', 'so', 'much']
+words = s.split('#', 2)
+print(words)  # ['I', 'love', 'you#so#much']
+ #字符串字面量拼接的情况
+s='See' 'you' 'tomorrow'
+words = s.split()
+  #Python 会自动将相邻的多个字符串字面量拼接成一个字符串。'See' 'you' 'tomorrow'会被Python解释器合并成'Seeyoutomorrow',中间没有空格
+print(words)  #['Seeyoutomorrow']
+print('~'.join(words))  #Seeyoutomorrow🐔"""
+''' #元组没有split()方法
+s='See','you','tomorrow'
+words=s.split() #'tuple' object has no attribute 'split'
+print(words)
+print('~'.join(words))'''
+
+ #编码和解码
+"""
+Python 中除了字符串str类型外，还有一种表示二进制数据的字节串类型（bytes）。所谓字节串，就是由零个或多个字节组成的有限序列。
+通过字符串的encode方法，我们可以按照某种编码方式将字符串编码为字节串，我们也可以使用字节串的decode方法，将字节串解码为字符串
+"""
+r"""🐔a = '立源'
+b = a.encode('utf-8')
+c = a.encode('gbk')
+print(b)                  # b'\xe7\xab\x8b\xe6\xba\x90'
+print(c)                  # b'\xc1\xa2\xd4\xb4'
+print(b.decode('utf-8'))  # 立源
+print(c.decode('gbk'))    # 立源🐔"""
+
+
+
+
+
+
