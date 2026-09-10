@@ -868,6 +868,150 @@ print(c)                  # b'\xc1\xa2\xd4\xb4'
 print(b.decode('utf-8'))  # 立源
 print(c.decode('gbk'))    # 立源🐔"""
 
+#创建集合
+"""
+在Python中，创建集合可以使用{}字面量语法，{}中需要至少有一个元素，因为没有元素的{}并不是空集合而是一个空字典
+当然，也可以使用类构造器set来创建一个集合，可以使用set函数创建一个空集合，也可以用它将其他序列转换成集合，
+例如：set('hello')会得到一个包含了4个字符的集合（重复的字符l只会在集合中出现一次）。
+除了这两种方式，还可以使用生成式语法来创建集合，就像之前用生成式语法创建列表那样。
+"""
+"""🐔set1 = {1, 2, 3, 3, 3, 2}
+print(set1)
+set2 = {'banana', 'pitaya', 'apple', 'apple', 'banana', 'grape'}
+print(set2)  #{'pitaya', 'grape', 'apple', 'banana'}  集合中的元素具有互异性
+set3 = set('hello')
+print(set3)  #{'h', 'o', 'l', 'e'}
+set4 = set([1, 2, 2, 3, 3, 3, 2, 1])
+print(set4)  #{1, 2, 3}
+set5 = {num for num in range(1, 20) if num % 3 == 0 or num % 7 == 0}
+print(set5)
+set6=set(range(1, 20,3))
+print(set6)🐔"""
+'''
+集合中的元素必须是hashable类型，所谓hashable类型指的是能够计算出哈希码的数据类型，
+通常不可变类型都是hashable类型，如整数（int）、浮点小数（float）、布尔值（bool）、字符串（str）、元组（tuple）等。
+可变类型都不是hashable类型，因为可变类型无法计算出确定的哈希码，所以它们不能放到集合中。
+例如：我们不能将列表作为集合中的元素；同理，由于集合本身也是可变类型，所以集合也不能作为集合中的元素。
+我们可以创建出嵌套列表（列表的元素也是列表），但是我们不能创建出嵌套的集合
+'''
+
+"""🐔#集合中元素的遍历 由于集合具有无序性，故不能用索引运算来实现元素的遍历，不过也可以用len()来获取集合中元素的个数
+set1 = {'Python', 'C++', 'Java', 'Kotlin', 'Swift'}
+for elem in set1:
+    print(elem) #集合具有无序性，故每次print出的结果中元素的顺序都是不同的
+
+#集合的运算
+ #成员运算 通过in和not in判断某元素是否在集合中
+set1 = {11, 12, 13, 14, 15}
+print(10 in set1)  # False
+print(15 in set1)  # True
+set2 = {'Python', 'Java', 'C++', 'Swift'}
+print('Ruby' in set2)  # False
+print('Java' in set2)  # True
+
+ #二元运算
+set1 = {1, 2, 3, 4, 5, 6, 7}
+set2 = {2, 4, 6, 8, 10}
+  #交集
+print(set1&set2)                      # {2, 4, 6}
+print(set1.intersection(set2))          # {2, 4, 6}
+  #并集
+print(set1|set2)                      # {1, 2, 3, 4, 5, 6, 7, 8, 10}
+print(set1.union(set2))                 # {1, 2, 3, 4, 5, 6, 7, 8, 10}
+  #差集 两集合中相同的元素减掉，对于相异的元素，只保留减号前面的集合中的
+print(set1-set2)                      # {1, 3, 5, 7}
+print(set1.difference(set2))            # {1, 3, 5, 7}
+  #对称差  两个集合中除开交集的部分
+print(set1^set2)                      # {1, 3, 5, 7, 8, 10}
+print(set1.symmetric_difference(set2))  # {1, 3, 5, 7, 8, 10}🐔"""
+'''
+对两个集合求交集，&运算符和intersection方法的作用是完全相同的，使用运算符的方式显然更直观且代码也更简短。
+需要说明的是，集合的二元运算还可以跟赋值运算一起构成复合赋值运算，
+例如：set1|=set2相当于set1=set1|set2，跟|=作用相同的方法是update；
+set1&=set2相当于set1=set1&set2，跟&=作用相同的方法是intersection_update
+'''
+
+#比较运算
+'''
+两个集合可以用==和!=进行相等性判断，如果两个集合中的元素完全相同，那么==比较的结果就是True，否则就是False。
+如果集合A的任意一个元素都是集合B的元素，那么集合A称为集合B的子集，
+即对于∀𝑎∈𝐴，均有𝑎∈𝐵，则𝐴⊆𝐵，A是B的子集，反过来也可以称B是A的超集。
+如果A是B的子集且A不等于B，那么A就是B的真子集。
+Python为集合类型提供了判断子集和超集的运算符，其实就是我们非常熟悉的<、<=、>、>=这些运算符。
+当然，我们也可以通过集合类型的方法issubset（是否子集）和issuperset（是否超集）来判断集合之间的关系
+'''
+"""🐔set1 = {1, 3, 5}
+set2 = {1, 2, 3, 4, 5}
+set3 = {5, 4, 3, 2, 1}
+print(set1<set2)   #True   <子集
+print(set1<=set2)  #True   <=真子集
+print(set2<set3)   #False
+print(set2<=set3)  #True
+print(set2>set1)   #True   >超集
+print(set2==set3)  #True
+print(set1.issubset(set2))    #True
+print(set2.issuperset(set1))  #True🐔"""
+
+"""🐔#集合的方法 因为集合是可变类型，所以可以向集合中增删元素
+set1 = {1, 10, 100}
+ #添加元素
+set1.add(1000)
+set1.add(10000)
+print(set1)  # {1, 100, 1000, 10, 10000}
+ #删除元素
+set1.discard(10)
+if 100 in set1:
+    set1.remove(100)
+print(set1)  # {1, 1000, 10000}
+set1.pop()  #pop方法可以从集合中随机删除一个元素，该方法在删除元素的同时会返回（获得）被删除的元素
+print(set1)
+ #清空元素
+set1.clear()
+print(set1)  # set() 前面提到过：没有元素的{}并不是空集合而是一个空字典。故此处输出的不是{}而是类构造器set()
+#集合类型还有一个名为isdisjoint的方法可以判断两个集合有没有相同的元素，如果没有相同元素，该方法返回True，否则该方法返回False
+set1 = {'Java', 'Python', 'C++', 'Kotlin'}
+set2 = {'Kotlin', 'Swift', 'Java', 'Dart'}
+set3 = {'HTML', 'CSS', 'JavaScript'}
+print(set1.isdisjoint(set2))  # False
+print(set1.isdisjoint(set3))  # True🐔"""
+
+#不可变集合 frozenset
+'''
+可变集合set跟不可变集合frozenset的区别就如同list跟tuple的区别，
+frozenset由于是不可变类型，能够计算出哈希码，因此它可以作为set中的元素。
+除了不能添加和删除元素，frozenset在其他方面跟set是一样的，但在终端输出时会默认带上frozenset()的类构造器
+'''
+"""🐔fset1 = frozenset({1, 3, 5, 7})
+fset2 = frozenset(range(1, 6))
+print(fset1)          # frozenset({1, 3, 5, 7})
+print(fset2)          # frozenset({1, 2, 3, 4, 5})
+print(fset1&fset2)  # frozenset({1, 3, 5})
+print(fset1|fset2)  # frozenset({1, 2, 3, 4, 5, 7})
+print(fset1-fset2)  # frozenset({7})
+print(fset1<fset2)  # False🐔"""
+
+#创建和使用字典
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
