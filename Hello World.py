@@ -990,17 +990,162 @@ print(fset1|fset2)  # frozenset({1, 2, 3, 4, 5, 7})
 print(fset1-fset2)  # frozenset({7})
 print(fset1<fset2)  # False🐔"""
 
-#创建和使用字典
+#创建和使用字典 字典以键值对（键和值的组合）的方式把数据组织到一起
+"""
+Python中创建字典可以使用{}字面量语法，但是字典的{}中的元素是以键值对的形式存在的，
+每个元素由:分隔的两个值构成，:前面是键，:后面是值。可以用:前面的键来表示条目的含义，而:后面就是这个条目所对应的值。
+"""
+"""🐔dictionary= {
+    '麓': '山脚下',
+    '路': '道，往来通行的地方；方面，地区：南～货，外～货；种类：他俩是一～人',
+    '蕗': '甘草的别名',
+    '潞': '潞水，水名，即今山西省的浊漳河；潞江，水名，即云南省的怒江'
+}
+print(dictionary)
+person = {
+    'name': '刘立源',
+    'age': 19,
+    'height': 164,
+    'weight': 53,
+    'tel': '10086',
+    'emergence contact': '400-161 9995'
+}
+print(person)
+ #可以使用类构造器dict或者是字典的生成式语法来创建字典
+  #dict构造器中的每一组参数就是字典中的一组键值对
+person = dict(name='刘立源', age=19, height=164, weight=53, tel='10086')
+print(person)  # {'name': '刘立源', 'age': 19, 'height': 164, 'weight': 53, 'tel': '10086'}
+  #可以通过Python内置函数zip压缩两个序列并创建字典
+items1 = dict(zip('ABCDE', '12345'))
+print(items1)  # {'A': '1', 'B': '2', 'C': '3', 'D': '4', 'E': '5'}
+items2 = dict(zip('ABCDE', range(1, 10)))
+print(items2)  # {'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5}
+  #用字典生成式语法创建字典
+items3 = {x: x ** 3 for x in range(1, 6)}
+print(items3)  # {1: 1, 2: 8, 3: 27, 4: 64, 5: 125}🐔"""
+"""🐔#字典的遍历
+ #使用len()函数仍可得到字典中元素的个数。使用for循环而不使用索引运算时只是对字典的键而非值进行遍历
+dict1={'A':'1','B': '2', 'C': '3', 'D': '4'}
+print(len(dict1))  #4
+for key in dict1:
+    print(key,end=' ')  #A B C D
+for key1 in dict1.keys():
+    print(key1,end=' ') #A B C D
+for key2 in dict1.keys():
+    print(key2, dict1[key2],end=' ')  #A 1 B 2 C 3 D 4
+for value in dict1.values():
+    print(value, end=' ')  #1 2 3 4🐔"""
+"""
+字典中的键必须是不可变类型，例如整数（int）、浮点数（float）、字符串（str）、元组（tuple）等类型，
+这一点跟集合类型对元素的要求是一样的；很显然，列表（list）和集合（set）不能作为字典中的键，
+字典类型本身也不能再作为字典中的键，因为字典也是可变类型，但是列表、集合、字典都可以作为字典中的值
+"""
+"""🐔person = {
+    'name': '刘立源',
+    'age': 19,
+    'height': 164,
+    'weight': 53,
+    'addr': ['成都市武侯区科华北路62号1栋101', '北京市西城区百万庄大街1号'], #字典里面套列表
+    'car': {
+        'brand': 'BMW X7',
+        'maxSpeed': '250',
+        'length': 5170,
+        'width': 2000,
+        'height': 1835,
+        'displacement': 3.0
+    } #嵌套字典说是
+}
+print(person)🐔"""
 
+"""🐔#字典的运算
+person = {'name': '刘立源', 'age':19, 'height':164, 'weight':53, 'addr': '成都市武侯区科华北路62号1栋101'}
+ #成员运算 可以判定指定的键在不在字典中
+print('name' in person)  # True
+print('tel' in person)   # False
+ #索引运算 可以通过键访问对应的值或者向字典中添加新的键值对 字典中因为保存的是键值对，所以字典需要用键去索引对应的值
+print(person['name'])
+print(person['addr'])
+person['age'] = 20
+person['height'] = 165
+person['tel'] = '10086'
+person['signature'] = '你的男朋友是一个盖世垃圾，他会踏着五彩祥云去迎娶你的闺蜜'
+print(person)
+ #循环遍历
+for key in person:
+    print(f'{key}:\t{person[key]}')
+  #或者更简洁一些，使用字典的方法而不使用索引运算来取得键所对应的值
+for key, value in person.items():
+    print(f'{key}:\t{value}')🐔"""
 
+#字典的方法
+"""🐔 #获取键与值
+ #get方法 使用get方法在字典中没有指定的键时不会产生异常，而是返回None或指定的默认值
+person = {'name': '刘立源', 'age':19, 'height':164, 'weight':53, 'addr': '成都市武侯区科华北路62号1栋101'}
+print(person.get('name'))       # 刘立源
+print(person.get('sex'))        # None
+print(person.get('sex', True))  # True
+#keys,values和items方法
+person = {'name': '刘立源', 'age':19, 'height':164}
+print(person.keys())    # dict_keys(['name', 'age', 'height'])                           获取字典中的所有键
+print(person.values())  # dict_values(['刘立源', 19, 164])                                获取字典中的所有值
+print(person.items())   # dict_items([('name', '刘立源'), ('age', 19), ('height', 164)])  将键和值组装成二元组
+for key, value in person.items():
+   print(f'{key}:\t{value}')    #通常使用此法来遍历字典🐔"""
 
+"""🐔#合并字典 使用update方法 例如，有两个字典x和y，当执行x.update(y)操作时，x跟y相同的键对应的值会被y中的值更新，而y中有但x中没有的键值对会直接添加到x中
+person1 = {'name': '刘立源', 'age':19, 'height':164}
+person2 = {'age': 20, 'addr': '成都市武侯区科华北路62号1栋101'}
+person1.update(person2)
+print(person1)  #{'name': '刘立源', 'age':20, 'height':164, 'addr': '成都市武侯区科华北路62号1栋101'}
+person3 = {'weight':53,'height':165,'tel':'10086'}
+person1 |= person3  #也可使用|运算符达到相同的效果
+print(person1)  #{'name': '刘立源', 'age': 20, 'height': 165, 'addr': '成都市武侯区科华北路62号1栋101', 'weight': 53, 'tel': '10086'}
+🐔"""
+#删除与清空字典
+"""
+可以通过pop或popitem方法从字典中删除元素，默认删除最后一个元素。前者会返回（获得）键对应的值，但是如果字典中不存在指定的键，会引发KeyError错误；
+后者在删除元素时，会返回（获得）键和值组成的二元组。字典的clear方法会清空字典中所有的键值对
+"""
+"""🐔person = {'name': '刘立源', 'age':19, 'height':164,'addr': '成都市武侯区科华北路62号1栋101'}
+  #pop方法
+print(person.pop('age'))  # 19
+print(person)             # {'name': '刘立源', 'height':164,'addr': '成都市武侯区科华北路62号1栋101'}
+  #popitem方法
+print(person.popitem())   # ('addr', '成都市武侯区科华北路62号1栋101')
+print(person)             # {'name': '刘立源', 'height':164}
+  #del关键字
+del person['name']
+print(person)             # {'height': 164}
+  #clear方法
+person.clear()
+print(person)             # {}
+  #使用del关键字时，若在删除元素的时候如果指定的键索引不到对应的值，一样会引发KeyError错误
+del person['addr']        #KeyError: 'addr'🐔"""
 
-
-
-
-
-
-
+"""🐔#字典的应用
+ #输入一段话，统计每个英文字母出现的次数，按出现次数从高到低输出。
+sentence = input('请输入一段话: ')
+counter = {}
+for ch in sentence:
+    if 'A' <= ch <= 'Z' or 'a' <= ch <= 'z':
+        counter[ch] = counter.get(ch, 0) + 1
+sorted_keys = sorted(counter, key=counter.get, reverse=True)
+for key in sorted_keys:
+    print(f'{key} 出现了 {counter[key]} 次.')
+    #例如输入：Thou shalt make thine end at the blooming of flowers, even as the end giveth birth to the beginning.
+    #汝将收梢于花开时，一如终结诞下起始。
+ #在一个字典中保存了股票的代码和价格，找出股价大于100元的股票并创建一个新的字典
+stocks = {
+    'AAPL': 191.88,
+    'GOOG': 1186.96,
+    'IBM': 149.24,
+    'ORCL': 48.44,
+    'ACN': 166.89,
+    'FB': 208.09,
+    'SYMC': 21.29
+}
+stocks2 = {key: value for key, value in stocks.items() if value > 100} #字典的生成式语法
+print(stocks2)🐔"""
 
 
 
